@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #fbbf24; /* Yellow */
+            --secondary: #10b981; /* Green */
+            --accent: #ffffff; /* White */
+            --background: #f9fafb; /* Light Gray */
+            --card: #ffffff; /* White */
+            --text: #1f2937; /* Dark Gray */
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            min-height: 100vh;
+        }
+        
+        .dashboard-card {
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            background: var(--primary);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-bolt text-black text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Smart Power Saver</h1>
+                    <p class="text-gray-600">Blockchain-Powered Energy Management</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:block">
+                    <span class="text-sm text-gray-600">Last updated: Just now</span>
+                </div>
+                <div class="w-10 h-10 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-white"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="flex space-x-2 mb-6 bg-white rounded-2xl p-2">
+            <a href="index.html" class="tab-button px-6 py-3 rounded-xl font-semibold">
+                <i class="fas fa-chart-line mr-2"></i>Dashboard
+            </a>
+            <a href="wallet.html" class="tab-button active px-6 py-3 rounded-xl font-semibold">
+                <i class="fas fa-wallet mr-2"></i>Digital Wallet
+            </a>
+            <a href="bills.html" class="tab-button px-6 py-3 rounded-xl font-semibold">
+                <i class="fas fa-file-invoice mr-2"></i>Bill Payment
+            </a>
+        </div>
+
+        <!-- Wallet Content -->
+        <div id="wallet-content" class="dashboard-card p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Digital Wallet</h2>
+            
+            <div class="mb-8">
+                <div class="flex items-center justify-between bg-green-100 p-4 rounded-xl">
+                    <p class="text-lg font-semibold text-green-800">Current Balance:</p>
+                    <p class="text-3xl font-bold text-green-800" id="wallet-balance">₹0.00</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Transaction History</h3>
+            <div class="space-y-4" id="wallet-transactions">
+                <!-- Transactions loaded here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to fetch data from data.json
+        async function fetchData() {
+            try {
+                const response = await fetch('data.json'); // Path to your JSON file
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Could not fetch data:", error);
+                return null; // Or handle error appropriately
+            }
+        }
+
+        // --- Rendering Function ---
+        async function renderWallet() {
+            const appData = await fetchData(); // Fetch data from data.json
+            if (!appData) return;
+
+            // Update Balance
+            document.getElementById('wallet-balance').textContent = `₹${appData.wallet.currentBalanceINR.toFixed(2)}`;
+
+            // Update Transaction History
+            const walletTransactionsContainer = document.getElementById('wallet-transactions');
+            walletTransactionsContainer.innerHTML = '';
+            appData.wallet.transactions.forEach(txn => {
+                const isCredit = txn.amountINR >= 0;
+                const amountFormatted = `₹${Math.abs(txn.amountINR).toFixed(2)}`;
+                
+                const txnDiv = document.createElement('div');
+                txnDiv.className = `flex items-center justify-between p-4 bg-gray-50 rounded-xl`;
+                txnDiv.innerHTML = `
+                    <div>
+                        <p class="font-semibold">${txn.description}</p>
+                        <p class="text-sm text-gray-600">ID: ${txn.id}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-semibold ${isCredit ? 'text-green-600' : 'text-red-600'}">${isCredit ? '+' : '-'} ${amountFormatted}</p>
+                        <p class="text-sm text-gray-600">${txn.date}</p>
+                    </div>
+                `;
+                walletTransactionsContainer.appendChild(txnDiv);
+            });
+        }
+
+        // Initial render when the page loads
+        document.addEventListener('DOMContentLoaded', renderWallet);
+    </script>
+</body>
+</html>

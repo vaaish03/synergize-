@@ -1,0 +1,155 @@
+{
+  "summary": {
+    "totalConsumptionKWh": 12.8,
+    "totalCostINR": 235.50,
+    "estimatedSavingsINR": 78.25,
+    "carbonSavedKg": 12.5,
+    "lastUpdated": "Just now"
+  },
+  "blockchain": {
+    "blockConfirmations": 12,
+    "transactionSpeedSeconds": 2,
+    "activeNodes": 45
+  },
+  "transactions": [
+    {
+      "id": "txn001",
+      "type": "credit",
+      "description": "Energy Sold",
+      "details": "2.5 kWh to Grid",
+      "amountINR": 45.75,
+      "timeAgo": "2 hours ago"
+    },
+    {
+      "id": "txn002",
+      "type": "debit",
+      "description": "Energy Purchase",
+      "details": "1.2 kWh from Neighbor",
+      "amountINR": -22.80,
+      "timeAgo": "5 hours ago"
+    },
+    {
+      "id": "txn003",
+      "type": "credit",
+      "description": "Energy Sold",
+      "details": "1.0 kWh to Grid",
+      "amountINR": 18.00,
+      "timeAgo": "1 day ago"
+    },
+    {
+      "id": "txn004",
+      "type": "debit",
+      "description": "Device Usage",
+      "details": "Living Room AC",
+      "amountINR": -15.00,
+      "timeAgo": "1 day ago"
+    }
+  ],
+  "devices": [
+    {
+      "id": "device1",
+      "name": "Living Room AC",
+      "icon": "fa-snowflake",
+      "consumptionKWh": 2.5,
+      "costINR": 45.75,
+      "efficiencyPercent": 85,
+      "status": true,
+      "schedule": "18:00-23:00"
+    },
+    {
+      "id": "device2",
+      "name": "Refrigerator",
+      "icon": "fa-blender",
+      "consumptionKWh": 0.8,
+      "costINR": 14.20,
+      "efficiencyPercent": 92,
+      "status": true,
+      "schedule": "24/7"
+    },
+    {
+      "id": "device3",
+      "name": "Washing Machine",
+      "icon": "fa-tshirt",
+      "consumptionKWh": 1.2,
+      "costINR": 21.50,
+      "efficiencyPercent": 78,
+      "status": false,
+      "schedule": "09:00-11:00"
+    },
+    {
+      "id": "device4",
+      "name": "Water Heater",
+      "icon": "fa-water",
+      "consumptionKWh": 3.0,
+      "costINR": 55.00,
+      "efficiencyPercent": 70,
+      "status": true,
+      "schedule": "06:00-08:00"
+    },
+    {
+      "id": "device5",
+      "name": "Smart Lights",
+      "icon": "fa-lightbulb",
+      "consumptionKWh": 0.1,
+      "costINR": 1.80,
+      "efficiencyPercent": 95,
+      "status": true,
+      "schedule": "Auto"
+    },
+    {
+      "id": "device6",
+      "name": "Dishwasher",
+      "icon": "fa-dishwasher",
+      "consumptionKWh": 1.5,
+      "costINR": 28.00,
+      "efficiencyPercent": 80,
+      "status": false,
+      "schedule": "20:00-22:00"
+    }
+  ],
+  "wallet": {
+    "currentBalanceINR": 1250.75,
+    "transactions": [
+      {
+        "id": "wtxn001",
+        "description": "Energy Sold",
+        "details": "2.5 kWh to Grid",
+        "amountINR": 45.75,
+        "date": "2023-10-26 14:30"
+      },
+      {
+        "id": "wtxn002",
+        "description": "Energy Purchase",
+        "details": "1.2 kWh from Neighbor",
+        "amountINR": -22.80,
+        "date": "2023-10-26 09:15"
+      },
+      {
+        "id": "wtxn003",
+        "description": "Bill Payment",
+        "details": "Monthly Electricity Bill",
+        "amountINR": -500.00,
+        "date": "2023-10-25 18:00"
+      }
+    ]
+  },
+  "bills": {
+    "outstandingBillINR": 750.00,
+    "recentPayments": [
+      {
+        "id": "bpay001",
+        "description": "Electricity Bill",
+        "period": "Sep 2023",
+        "amountINR": 500.00,
+        "date": "2023-10-25"
+      },
+      {
+        "id": "bpay002",
+        "description": "Water Bill",
+        "period": "Aug 2023",
+        "amountINR": 250.00,
+        "date": "2023-09-20"
+      }
+    ]
+  }
+}
